@@ -1,0 +1,244 @@
+% !TeX program = xelatex
+\documentclass[12pt, letterpaper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=1.25cm,
+    bottom=2cm,
+    left=1.25cm,
+    right=1.25cm,
+    footskip=1.0 cm
+]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage{xcolor}
+\definecolor{primaryColor}{RGB}{0, 79, 144}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage[
+    pdftitle={Sergei Ermolaev CV},
+    pdfauthor={Sergei Ermolaev},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{etoolbox} % for \patchcmd
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{english}
+
+\defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase}
+
+\setmainfont{Inter_18pt}[
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-BoldItalic
+]
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{plain}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+
+\titleformat{\section}{
+  \needspace{4\baselineskip}
+  \Large\color{primaryColor}
+}{}{}{\textbf{#1}\hspace{0.1cm}\titlerule[0.8pt]\hspace{-0.1cm}}[]
+
+\titleformat{\subsection}{
+}{}{}{\textit{#1}}[]
+
+\titlespacing{\section}{-1pt}{0.08 cm}{0.05 cm}
+\titlespacing{\subsection}{-1pt}{0.08 cm}{0.05 cm}
+
+\newenvironment{highlights}{
+  \begin{itemize}[
+    topsep=0.05 cm,
+    parsep=0.10 cm,
+    partopsep=0pt,
+    itemsep=0pt,
+    leftmargin=0.4 cm + 10pt
+  ]
+}{
+  \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+  \begin{adjustwidth}{0.0cm}{0.1cm}
+}{
+  \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+  \onecolentry
+  \def\secondColumn{#2}
+  \setcolumnwidth{\fill, 3.5 cm}
+  \begin{paracol}{2}
+}{
+  \switchcolumn \raggedleft \secondColumn
+  \end{paracol}
+  \endonecolentry
+}
+
+\newenvironment{header}{
+  \setlength{\topsep}{0pt}\par\kern\topsep\centering\color{primaryColor}\linespread{1.5}
+}{
+  \par\kern\topsep
+}
+
+\newcommand{\eduentry}[4]{% #1 вуз; #2 локация; #3 степень/направление; #4 даты
+  \noindent
+  \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & #2\\[-0.2em]
+    \textit{#3} & \textit{#4}\\
+  \end{tabular*}\par
+}
+
+\newcommand{\subeduentry}[2]{% #1 название; #2 даты
+  \noindent
+  \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    {#1} & \textit{#2}
+  \end{tabular*}\par
+}
+
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+
+\newcommand{\AND}{\unskip
+  \cleaders\copy\ANDbox\hskip\wd\ANDbox
+  \ignorespaces
+}
+\newsavebox\ANDbox
+\sbox\ANDbox{}
+
+% \placelastupdatedtext
+\begin{header}
+  {\fontsize{28pt}{34pt}\selectfont \textbf{Sergei Ermolaev}}
+  
+  \normalsize
+  \mbox{\hrefWithoutArrow{https://t.me/j1nsei/}{{\footnotesize\faTelegramPlane}\hspace*{0.13cm}}}
+  \kern 0.25 cm
+  \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/saermolaev/}{{\footnotesize\faLinkedin}\hspace*{0.13cm}}}
+  \kern 0.25 cm
+  \AND
+  \kern 0.25 cm
+  \mbox{\hrefWithoutArrow{mailto:saermolaev.w@gmail.com}{{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}saermolaev.w@gmail.com}}
+  \kern 0.25 cm
+  \AND
+  \kern 0.25 cm
+  \mbox{\hrefWithoutArrow{tel:+79308023125}{{\footnotesize\faPhone*}\hspace*{0.13cm}+7 (930) 802-31-25}}
+  \kern 0.25 cm
+  \AND
+  \kern 0.25 cm
+  \mbox{{\footnotesize\faMapMarker*}\hspace*{0.13cm}Nizhny Novgorod (UTC+3)}%
+  \kern 0.25 cm
+  \AND
+  \kern 0.25 cm
+  \mbox{\hrefWithoutArrow{https://j1nsei.github.io/cv/index.html?utm_source=en_pdf}{{\footnotesize\faLanguage}\hspace*{0.13cm}RU CV}}
+\end{header}
+
+\section{Summary}
+
+\begin{onecolentry}
+    {\sloppy
+    \textbf{AI / Machine Learning Engineer with 3 years of professional experience}. My background includes classification, computer vision, and speech processing. My current focus is \textbf{RAG, LLM inference, AI agents, and hybrid search}. I specialize in rapid prototyping of ML/AI solutions, from testing ideas to building demos. I take solutions into production with quality evaluation and monitoring, optimizing for latency and compute constraints. Open to remote work and relocation.
+    \par\fussy}
+\end{onecolentry}
+
+
+\section{Experience}
+
+\begin{twocolentry}{Nizhny Novgorod
+
+Nov 2023 – Present}
+  \textbf{Proton} \textit{(IT company of AGAT Group, \href{https://www.forbes.ru/biznes/535642-vyrucka-25-krupnejsih-avtodilerov-rossii-vyrosla-do-2-4-trln-rublej}{top-5 Russian automotive dealer group}, 120+ showrooms)}\newline
+  Machine Learning Engineer:
+  \begin{highlights}
+    \item Improved \textbf{multi-label call classification} from \textbf{79\% to 94\% sample-wise F1} and from \textbf{3\% to 61.6\% EMR}, with sub-second CPU inference for \textbf{1,000+ calls daily}. Handled data preparation, transcription, multilabel stratification, model experiments, and production integration. Company analysts estimated the financial impact at \textbf{\textasciitilde\$1.7M}.
+    \item Built and deployed a \textbf{RAG assistant using RAGFlow and vLLM}, achieving \textbf{4.7/5 user satisfaction}, \textbf{95\% faithfulness}, and \textbf{p99 TTFT of 4.6s} under load with long contexts. Selected models, adapted RAGFlow to the corporate knowledge base, and built a custom document preprocessing and parsing pipeline with production monitoring, tracing, and quality evaluation.
+    \item Designed and implemented a ticket routing \textbf{AI agent} for an internal workflow system using RAG, Guardrails, Memory, LangGraph, LangFuse, and vLLM; owned the full development cycle, including \textbf{quality and performance monitoring}.
+    \item Developed a \textbf{car parts search system} that reduced requests to parts specialists from \textbf{300 to 20 per day (−93\%)}. Implemented hybrid search with custom ranking and relevance thresholds, built an abbreviation dictionary, and deployed the service using \textbf{FastAPI and Docker}.
+    \item Built an \textbf{LLM-based call labeling} pipeline using Mistral/Qwen, zero-/few-shot prompting, and \textbf{LoRA Qwen2.5-3B}; achieved up to \textbf{90\% accuracy} in experiments and deployed an XLinear baseline with 88\% accuracy for CPU inference.
+    \item Built a \textbf{vehicle test-drive tracking} pipeline using \textbf{YOLOv5}, multi-threaded video processing, and ROI cropping; improved tracking accuracy from \textbf{65\% to 87\%} and reached up to \textbf{15 FPS} on a consumer-grade GPU.
+  \end{highlights}
+\end{twocolentry}
+
+\section{Projects}
+\begin{twocolentry}{Sept 2022 -- May 2023}
+  \textbf{HSE University Nizhny Novgorod} \textit{(Academic R\&D)}\newline
+  ML Engineer | \textit{WhisperX, Llama.cpp, aiogram, guidance. \href{https://github.com/J1nsei/Voice-Message-Summarization-Bot}{GitHub}}
+  \begin{highlights}
+    \item Developed an autonomous AI assistant (Telegram Bot on aiogram) for audio transcription and summarization with a focus on data privacy. Designed an ASR pipeline based on WhisperX with text alignment and regex noise filtering. Implemented hybrid (CPU/GPU) inference of the quantized LLM via llama.cpp with custom memory management and strict generation control using the guidance framework. The system runs without external APIs and optimized for local execution on consumer hardware (from 12GB VRAM).
+  \end{highlights}
+\end{twocolentry}
+
+\begin{twocolentry}{Feb 2021 -- May 2021}
+  \textbf{HSE University Nizhny Novgorod} \textit{(Joint R\&D project with business)}\newline
+  ML Researcher | \textit{Selenium, Colabeler, torchvision}
+  \begin{highlights}
+    \item Designed a data collection and preparation pipeline for a CV model detecting car damage. Collected the dataset, performed labeling, augmentation, and class balancing.
+  \end{highlights}
+\end{twocolentry}
+
+\section{Education}
+
+\eduentry
+{HSE University}
+{Nizhny Novgorod, Russia}
+{Master's degree in Data Mining}
+{Sept 2022 – June 2024}
+
+\eduentry
+{HSE University}
+{Nizhny Novgorod, Russia}
+{Bachelor's degree in Applied Mathematics and Informatics}
+{Sept 2018 – June 2022}
+
+\subsection{Professional Development}
+\subeduentry
+{\href{https://education.yandex.com/profile/docs?id=686cc0f4-1c98-408c-aeb7-4bfb81df4730}{Yandex School of Data Analysis Intensive: AI Agents Security Week}}
+{Jul 27, 2026 -- Jul 31, 2026}
+\subeduentry
+{\href{https://education.yandex.com/profile/docs?id=2f1dd619-4a1b-45a6-93f1-491e18333322}{Yandex School of Data Analysis Intensive: Agents Week}}
+{Apr 6, 2026 -- Apr 10, 2026}
+\subeduentry
+{\href{https://education.yandex.com/profile/docs?id=95aa3c1d-031f-4a09-9d8e-af8159728780}{Yandex School of Data Analysis Intensive: LLM Scaling Week}}
+{Nov 10, 2025 – Nov 14, 2025}
+
+
+\section{Skills}
+
+\begin{onecolentry}
+  \textbf{DL/ML:} Python, PyTorch, vLLM, Transformers, LangChain, LangGraph, llama.cpp, DeepEval, RAGFlow, NumPy, prompt engineering, Infinity, Unsloth, scikit-learn, WhisperX, spaCy, Ultralytics
+\end{onecolentry}
+
+\begin{onecolentry}
+  \textbf{Infra/Tools:} Linux, Docker, FastAPI, Git, DVC, Streamlit, LangFuse, W\&B, matplotlib, Grafana, Kubeflow
+\end{onecolentry}
+
+\begin{onecolentry}
+  \textbf{Data:} pandas, polars, SQL
+\end{onecolentry}
+
+\begin{onecolentry}
+  \textbf{Languages:} Russian - Native, English - B2 / Upper-Intermediate
+\end{onecolentry}
+
+\end{document}

@@ -1,0 +1,260 @@
+% !TeX program = xelatex
+\documentclass[12pt, a4paper]{article}
+
+% Packages:
+\usepackage[
+    ignoreheadfoot,
+    top=1.25cm,
+    bottom=2cm,
+    left=1.25cm,
+    right=1.25cm,
+    footskip=1.0 cm
+]{geometry}
+\usepackage[explicit]{titlesec}
+\usepackage{xcolor}
+\definecolor{primaryColor}{RGB}{0, 79, 144}
+\usepackage{enumitem}
+\usepackage{fontawesome5}
+\usepackage[
+    pdftitle={Сергей Ермолаев CV},
+    pdfauthor={Сергей Ермолаев},
+    pdfcreator={LaTeX with RenderCV},
+    colorlinks=true,
+    urlcolor=primaryColor
+]{hyperref}
+\usepackage{calc}
+\usepackage{bookmark}
+\usepackage{changepage}
+\usepackage{paracol}
+\usepackage{ifthen}
+\usepackage{needspace}
+\usepackage{etoolbox} % for \patchcmd
+
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\defaultfontfeatures{Ligatures=TeX, Scale=MatchLowercase}
+
+\setmainfont{Inter_18pt}[
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-BoldItalic
+]
+
+
+\newfontfamily\cyrillicfont{Inter_18pt}[
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic
+]
+
+\newfontfamily\cyrillicfontsf{Inter_18pt}[
+  Extension = .ttf,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  Script=Cyrillic
+]
+
+
+% Some settings:
+\AtBeginEnvironment{adjustwidth}{\partopsep0pt}
+\pagestyle{plain}
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\columnsep}{0.15cm}
+
+\titleformat{\section}{
+  \needspace{4\baselineskip}
+  \Large\color{primaryColor}
+}{}{}{\textbf{#1}\hspace{0.1cm}\titlerule[0.8pt]\hspace{-0.1cm}}[]
+
+\titleformat{\subsection}{
+}{}{}{\textit{#1}}[]
+
+\titlespacing{\section}{-1pt}{0.08 cm}{0.05 cm}
+\titlespacing{\subsection}{-1pt}{0.08 cm}{0.05 cm}
+\newenvironment{highlights}{
+  \begin{itemize}[
+    topsep=0.05 cm,
+    parsep=0.10 cm,
+    partopsep=0pt,
+    itemsep=0pt,
+    leftmargin=0.4 cm + 10pt
+  ]
+}{
+  \end{itemize}
+}
+
+\newenvironment{onecolentry}{
+  \begin{adjustwidth}{0.0cm}{0.1cm}
+}{
+  \end{adjustwidth}
+}
+
+\newenvironment{twocolentry}[2][]{
+  \onecolentry
+  \def\secondColumn{#2}
+  \setcolumnwidth{\fill, 3.5 cm}
+  \begin{paracol}{2}
+}{
+  \switchcolumn \raggedleft \secondColumn
+  \end{paracol}
+  \endonecolentry
+}
+
+
+\newenvironment{header}{
+  \setlength{\topsep}{0pt}\par\kern\topsep\centering\color{primaryColor}\linespread{1.5}
+}{
+  \par\kern\topsep
+}
+
+\newcommand{\eduentry}[4]{% #1 вуз; #2 локация; #3 степень/направление; #4 даты
+  \noindent
+  \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    \textbf{#1} & #2\\[-0.2em]
+    \textit{#3} & \textit{#4}\\
+  \end{tabular*}\par
+}
+
+\newcommand{\subeduentry}[2]{% #1 название; #2 даты
+  \noindent
+  \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    {#1} & \textit{#2}
+  \end{tabular*}\par
+}
+
+
+% save the original href command in a new command:
+\let\hrefWithoutArrow\href
+% new command for external links:
+\renewcommand{\href}[2]{\hrefWithoutArrow{#1}{\ifthenelse{\equal{#2}{}}{ }{#2 }\raisebox{.15ex}{\footnotesize \faExternalLink*}}}
+
+\begin{document}
+
+\newcommand{\AND}{\unskip
+  \cleaders\copy\ANDbox\hskip\wd\ANDbox
+  \ignorespaces
+}
+\newsavebox\ANDbox
+\sbox\ANDbox{}
+
+% \placelastupdatedtext
+\begin{header}
+  {\fontsize{28pt}{34pt}\selectfont \textbf{Сергей Ермолаев}}
+
+  \normalsize
+  \mbox{\hrefWithoutArrow{https://t.me/j1nsei/}{{\footnotesize\faTelegramPlane}\hspace*{0.13cm}}}
+  \kern 0.25 cm
+  \mbox{\hrefWithoutArrow{https://www.linkedin.com/in/saermolaev/?locale=ru-RU}{{\footnotesize\faLinkedin}\hspace*{0.13cm}}}
+  \kern 0.25 cm
+  \AND%
+  \kern 0.25 cm%
+  \mbox{\hrefWithoutArrow{mailto:saermolaev.w@gmail.com}{{\footnotesize\faEnvelope[regular]}\hspace*{0.13cm}saermolaev.w@gmail.com}}%
+  \kern 0.25 cm%
+  \AND%
+  \kern 0.25 cm%
+  \mbox{\hrefWithoutArrow{tel:+7 (930) 802-31-25}{{\footnotesize\faPhone*}\hspace*{0.13cm}+7 (930) 802-31-25}}%
+  \kern 0.25 cm%
+  \AND%
+  \kern 0.25 cm%
+  \mbox{{\footnotesize\faMapMarker*}\hspace*{0.13cm}Нижний Новгород}%
+  \kern 0.25 cm%
+  \AND%
+  \kern 0.25 cm%
+  \mbox{\hrefWithoutArrow{https://j1nsei.github.io/cv/en.html?utm_source=ru_pdf}{{\footnotesize\faLanguage}\hspace*{0.13cm}ENG CV.}}
+\end{header}
+
+\section{Обо мне}
+
+\begin{onecolentry}
+    {\sloppy
+    \textbf{AI / Machine Learning Engineer с 3 годами коммерческого опыта.} Работал с классификацией, компьютерным зрением и обработкой речи. Сейчас основной фокус — \textbf{RAG, LLM-инференс, AI-агенты и гибридный поиск}. Сильная сторона — быстрое прототипирование ML/AI-решений, от проверки гипотез до готового демо. Довожу решения до production с оценкой качества и мониторингом, оптимизирую их под требования к скорости и вычислительным ресурсам.
+    \par\fussy}
+\end{onecolentry}
+
+
+\section{Опыт}
+
+\begin{twocolentry}{Нижний Новгород \\ Нояб. 2023 -- Н. в.}
+  \textbf{Протон} \textit{(IT‑компания ГК \textbf{"АГАТ"}, \href{https://www.forbes.ru/biznes/535642-vyrucka-25-krupnejsih-avtodilerov-rossii-vyrosla-do-2-4-trln-rublej}{топ-5 автодилеров РФ}, 120+ автосалонов)}\newline
+  ML Engineer:
+  \begin{highlights}
+    \item \textbf{Многометочная классификация звонков}: F1-samples \textbf{79\% → 94\%}, EMR \textbf{3\% → 61.6\%}; инференс на CPU за доли секунды, \textbf{>1000 звонков ежедневно}. Подготовка данных, транскрибация, стратификация, эксперименты и интеграция в production. По оценке аналитиков компании, экономический эффект — \textbf{\textasciitilde170 млн ₽}.
+    \item \textbf{RAG‑ассистент (RAGFlow + vLLM)}: user satisfaction \textbf{4.7/5}, faithfulness \textbf{95\%}, \textbf{TTFT p99 4.6s} под нагрузкой с большим контекстом. Подбор моделей, доработка RAGFlow под корпоративную БЗ, собственный пайплайн исправления и парсинга документов. Развёртывание в production, мониторинг, трейсинг и оценка качества.
+    \item \textbf{Агент} маршрутизации тикетов в системе управления бизнесом GANDIVA с использованием RAG, Guardrails, Memory. Полный цикл разработки, включая мониторинг и оценку качества / производительности \textit{(LangGraph, RAGFlow, LangFuse, vLLM)}.
+    \item \textbf{Система подбора автозапчастей}: снижение обращений к подборщикам с \textbf{300 до 20 в день (−93\%)}. Реализация гибридного поиска с собственной функцией ранжирования и порогами отбора, создание словаря сокращений. Развёртывание сервиса на \textbf{FastAPI + Docker} в production.
+    \item \textbf{LLM‑разметка} звонков (Mistral/Qwen, zero-/few-shot, \textbf{LoRA Qwen2.5‑3B}): Accuracy до 90\% (LoRA), прод — XLinear 88\% (CPU онлайн/офлайн).
+    \item \textbf{CV‑трекинг} тест‑драйвов: YOLOv5, мультипоточность, кропы; точность 65\%→87\%, до 15 fps на Consumer GPU.
+  \end{highlights}
+\end{twocolentry}
+
+% \vspace{0.5cm}
+\section{Проекты}
+\begin{twocolentry}{Сент. 2022 -- Май 2023}
+  \textbf{НИУ ВШЭ НН} \textit{(Академический R\&D)}\newline
+  ML Engineer | \textit{WhisperX, Llama.cpp, aiogram, guidance. \href{https://github.com/J1nsei/Voice-Message-Summarization-Bot}{GitHub}}
+  \begin{highlights}
+    \item Разработка автономного AI-ассистента (Telegram Bot на aiogram) для транскрибации и суммаризации аудио с фокусом на Data Privacy. Спроектировал ASR-пайплайн на базе WhisperX с выравниванием текста и regex-фильтрацией шума. Реализовал гибридный (CPU/GPU) инференс квантованной LLM через llama.cpp с кастомным управлением памятью и жестким контролем генерации через фреймворк guidance. Проект полностью независим от внешних API и оптимизирован для локального запуска на потребительском железе (от 12GB VRAM).
+  \end{highlights}
+\end{twocolentry}
+
+%\vspace{0.5cm}
+\begin{twocolentry}{Февр. 2021 -- Май 2021}
+  \textbf{НИУ ВШЭ НН} \textit{(совместный R\&D проект с бизнесом)}\newline
+  ML Researcher | \textit{Selenium, Colabeler, torchvision}
+  \begin{highlights}
+    \item Проектирование пайплайна сбора и подготовки данных для CV-модели детекции повреждений автомобилей. Сбор датасета, разметка, аугментация, баланс классов.
+  \end{highlights}
+\end{twocolentry}
+
+\section{Образование}
+
+\eduentry
+{Национальный исследовательский университет «Высшая школа экономики»}
+{Нижний Новгород, Россия}
+{Магистратура, Интеллектуальный анализ данных}
+{Сент. 2022 -- Июнь 2024}
+
+\eduentry
+{Национальный исследовательский университет «Высшая школа экономики»}
+{Нижний Новгород, Россия}
+{Бакалавриат, Прикладная математика и информатика}
+{Сент. 2018 -- Июнь 2022}
+
+\subsection{Дополнительно}
+\subeduentry
+{\href{https://education.yandex.ru/profile/docs?id=927802ab-4cde-4068-9354-99469527e3fc}{AI Agents Security Week}}
+{27.07.2026 -- 31.07.2026}
+\subeduentry
+{\href{https://education.yandex.ru/profile/docs?id=2f1dd619-4a1b-45a6-93f1-491e18333322}{Agents Week Школы анализа данных (YSDA)}}
+{06.04.2026 -- 10.04.2026}
+\subeduentry
+{\href{https://education.yandex.ru/profile/docs?id=95aa3c1d-031f-4a09-9d8e-af8159728780}{Интенсив ШАД Яндекс: LLM Scaling Week}}
+{10.11.2025 -- 14.11.2025}
+
+\section{Навыки}
+
+\begin{onecolentry}
+  \textbf{DL/ML:} Python, PyTorch, vLLM, transformers, LangChain, LangGraph, llama.cpp, deepeval, RAGFlow, NumPy, prompt engineering, infinity, unsloth, scikit-learn, WhisperX, spaCy.
+\end{onecolentry}
+
+\begin{onecolentry}
+  \textbf{Infra/Tools:} Linux, Docker, FastAPI, Git, DVC, streamlit, LangFuse, W\&B, matplotlib, Grafana, Kubeflow
+\end{onecolentry}
+
+\begin{onecolentry}
+  \textbf{Data:} pandas, polars, SQL
+\end{onecolentry}
+
+\begin{onecolentry}
+  \textbf{Languages:} Russian - Native, English - B2 / Upper-Intermediate
+\end{onecolentry}
+
+\end{document}
